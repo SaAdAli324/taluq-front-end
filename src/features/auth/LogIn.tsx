@@ -25,7 +25,10 @@ const LogIn = () => {
     setApiError("");
     setLoading(true);
     try {
-      const response = await api.post("/api/auth/login", data);// response.data);
+      const response = await api.post("/api/auth/login", data);
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
       dispatch(login(response.data.user));
       navigate("/home");
     } catch (error: any) {

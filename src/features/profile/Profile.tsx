@@ -81,9 +81,12 @@ const Profile = () => {
         try {
             const response = await api.post('/api/auth/logout')
             if (response) {
+                localStorage.removeItem("token")
                 dispatch(logout())
             }
-        } catch (error) {// error)
+        } catch (error) {
+            localStorage.removeItem("token")
+            dispatch(logout())
         }
     }
 

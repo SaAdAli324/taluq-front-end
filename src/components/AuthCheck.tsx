@@ -10,15 +10,24 @@ const AuthCheck = ({ children }: { children: React.ReactNode }) => {
   
   useEffect(() => {
     const authenticateUser = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tokenFromUrl = urlParams.get("token");
+      if (tokenFromUrl) {
+        localStorage.setItem("token", tokenFromUrl);
+        urlParams.delete("token");
+        const cleanSearch = urlParams.toString();
+        const newUrl = window.location.pathname + (cleanSearch ? `?${cleanSearch}` : "");
+        window.history.replaceState({}, document.title, newUrl);
+      }
+
       try {
         const response = await api.get('api/get/profile', {
           withCredentials: true
-        })// response)
+        })
         dispatch(login(response.data.user))
         dispatch(setCheckingAuth(false))
       } catch (error) {
-        dispatch(setCheckingAuth(false))// "this is  the authentication  error", error);
-        
+        dispatch(setCheckingAuth(false))
       }
     }
     authenticateUser()

@@ -29,6 +29,10 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
+      const token = localStorage.getItem("token")
+      if (token) {
+        socket.auth = { token }
+      }
       socket.connect()
       return () => {
         socket.disconnect()
