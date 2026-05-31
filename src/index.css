@@ -1,0 +1,159 @@
+@import "tailwindcss";
+@plugin "tailwind-scrollbar";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Taluq Dark Theme Palette */
+  --color-taluq-green: #22c55e;
+  /* A vibrant, clean green (emerald-500) */
+  --color-taluq-gray: #1f2937;
+  /* Gray-800 */
+  --color-taluq-darker: #111827;
+  /* Gray-900 for sidebars/headers */
+
+  --font-sans: "Inter", ui-sans-serif, system-ui;
+  --animate-flow: flow-bg 5s linear infinite;
+  --animate-fade-in: fadeIn 0.3s ease-in-out forwards;
+
+  @keyframes flow-bg {
+  0% { background-position: 0% 100%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+}
+
+
+
+.preload,
+.preload * {
+  transition: none !important;
+}
+
+body {
+  @apply font-mono text-black font-stretch-ultra-expanded bg-white transition-colors duration-300;
+}
+
+.dark body {
+  @apply bg-[#0b0f19] text-[#e2e8f0];
+}
+
+.logoutBtn{
+  @apply cursor-pointer  bg-red-500 text-white px-8 py-2 rounded-lg transition-all ease-in-out duration-300 hover:bg-transparent hover:text-red-500 hover:border-red-500 hover:ring-2;
+}
+
+.saveBtn{
+  @apply cursor-pointer border-2 border-taluq-green bg-taluq-green text-white px-4 py-2 rounded-lg transition-all ease-in-out duration-300 hover:bg-transparent hover:text-taluq-green hover:border-taluq-green;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+.arrivedMessages {
+  @apply rounded-b-4xl transition-all duration-500 ease-in-out rounded-tr-4xl border-taluq-green bg-white text-taluq-darker w-full max-w-fit min-w-0 h-auto border-2 p-1 overflow-hidden wrap-break-word whitespace-pre-wrap px-3 py-4;
+}
+
+.dark .arrivedMessages {
+  @apply bg-[#1e293b] text-slate-100 border-[#334155];
+}
+
+.deliveredMessages {
+  @apply rounded-bl-4xl transition-all duration-500 ease-in-out ml-auto border-taluq-green bg-white text-taluq-darker rounded-t-4xl w-full max-w-fit min-w-0 h-auto border-2 p-1 overflow-hidden wrap-break-word whitespace-pre-wrap px-3 py-4;
+}
+.deliveredMessagesSticker {
+  @apply rounded-bl-4xl transition-all duration-500 ease-in-out ml-auto   bg-transparent text-taluq-darker rounded-t-4xl w-full max-w-fit min-w-0 h-auto p-1 overflow-hidden wrap-break-word whitespace-pre-wrap px-3 py-4;
+}
+.arrivedMessagesSticker {
+  @apply rounded-bl-4xl transition-all duration-500 ease-in-out ml-auto   bg-transparent text-taluq-darker rounded-t-4xl w-full max-w-fit min-w-0 h-auto p-1 overflow-hidden wrap-break-word whitespace-pre-wrap px-3 py-4;
+}
+.dark .deliveredMessages {
+  @apply bg-taluq-green text-white border-taluq-green;
+}
+
+.chat-input {
+  @apply border border-gray-500 text-black bg-white outline-0 focus:ring-2 focus:ring-taluq-green transition-all ease-in-out duration-300 rounded-3xl px-4 py-2 w-full;
+}
+
+.dark .chat-input {
+  @apply bg-[#1e293b] w-full min-w-0 border-slate-700 text-white placeholder-slate-400 focus:ring-taluq-green;
+}
+
+.chat-bullet {
+  @apply flex items-center rounded-2xl active:bg-gray-200 cursor-pointer border-gray-500 gap-4 p-2 hover:bg-gray-200 duration-200 ease-in-out;
+}
+
+.dark .chat-bullet {
+  @apply text-slate-200 active:bg-slate-800 hover:bg-slate-800/50;
+}
+
+.contact-profile-pic {
+  @apply rounded-full overflow-hidden max-w-14 max-h-14;
+}
+
+.taluq-theme{
+ @apply bg-gradient-to-t from-white to-taluq-green;
+}
+
+.dark .taluq-theme {
+  background-image: none;
+  background-color: black;
+}
+.taluq-loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.taluq-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #22C55E;
+  border-radius: 50%;
+  margin: 0 6px;
+  animation: pulse 1.5s infinite ease-in-out both;
+  box-shadow: 0 0 8px #22C55E80;
+}
+
+.taluq-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.taluq-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes pulse {
+  0%, 80%, 100% { 
+    transform: scale(0);
+    opacity: 0.3;
+  }
+  40% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
