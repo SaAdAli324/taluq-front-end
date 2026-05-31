@@ -28,21 +28,20 @@ const Home = () => {
 
 
   useEffect(() => {
-    if (user && user._id) {
+    if (user) {
       socket.connect()
-      socket.emit("request_online_users", user._id)
-      
-      const onConnect = () => {
-        socket.emit("request_online_users", user._id)
-      }
-      socket.on("connect", onConnect)
-
       return () => {
-        socket.off("connect", onConnect)
         socket.disconnect()
       }
     }
   }, [user])
+  
+  useEffect(() => {
+    socket.emit("user_is_online", user?._id)
+    return () => {
+      socket.disconnect()
+    }
+  }, [socket])
   const openProfileId =  searchParams.get("profile")
  
   return (
