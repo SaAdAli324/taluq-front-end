@@ -84,6 +84,20 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
               <IoDocumentOutline className="text-xl text-amber-500" />
               <span>Document</span>
             </button>
+            <button
+              onClick={() => { setShowGiphy(!showGiphy); setShowStickers(false); setShowAttachmentMenu(false); }}
+              className="md:hidden flex items-center gap-3 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-slate-700 dark:text-slate-200 transition-colors text-left font-medium cursor-pointer"
+            >
+              <div className="text-[10px] bg-indigo-500 text-white font-bold px-1 py-0.5 rounded">GIF</div>
+              <span>GIFs</span>
+            </button>
+            <button
+              onClick={() => { setShowStickers(!showStickers); setShowGiphy(false); setShowAttachmentMenu(false); }}
+              className="md:hidden flex items-center gap-3 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-slate-700 dark:text-slate-200 transition-colors text-left font-medium cursor-pointer"
+            >
+              <RiEmojiStickerLine className="text-xl text-pink-500" />
+              <span>Stickers</span>
+            </button>
           </div>
         )}
 
@@ -132,8 +146,8 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
           />
 
           <div className="absolute bottom-2 right-2 w-fit z-10 gap-2 flex items-center">
-            <button className="text-taluq-green cursor-pointer font-semibold text-sm hover:opacity-80" onClick={() => setShowGiphy(!showGiphy)}>GIFs</button>
-            <button className="text-taluq-green cursor-pointer hover:opacity-80" onClick={() => setShowStickers(!showStickers)}>
+            <button className="hidden md:block text-taluq-green cursor-pointer font-semibold text-sm hover:opacity-80" onClick={() => {setShowGiphy(!showGiphy); setShowStickers(false)}}>GIFs</button>
+            <button className="hidden md:block text-taluq-green cursor-pointer hover:opacity-80" onClick={() => {setShowStickers(!showStickers); setShowGiphy(false)}}>
               <RiEmojiStickerLine className="text-2xl" />
             </button>
             <button 
