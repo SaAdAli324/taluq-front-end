@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import EmojiPicker from 'emoji-picker-react';
 import { RiEmojiStickerLine } from "react-icons/ri";
-import { IoAttachOutline, IoImageOutline, IoVideocamOutline, IoDocumentOutline } from "react-icons/io5";
+import { IoAttachOutline, IoImageOutline, IoVideocamOutline, IoDocumentOutline, IoSend } from "react-icons/io5";
 import GiphyPicker from "./GiphyPicker.tsx";
 
 const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, sendFileMessage }: any) => {
@@ -95,13 +95,15 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
         </button>
 
         <div className="flex-1 relative">
-          <input
-            type="text"
+          <textarea
+            rows={1}
             placeholder="Type a message"
-            className="chat-input pr-24"
+            className="chat-input pr-32 resize-none overflow-y-auto block w-full py-2.5 min-h-[44px] max-h-32 scrollbar-thin scrollbar-thumb-taluq-green"
             value={text}
             onChange={(e) => {
               setText(e.target.value);
+              e.target.style.height = 'auto';
+              e.target.style.height = `${e.target.scrollHeight}px`;
               if (e.target.value.trim() !== "") {
                 typing(contactInfo?.conversationId, contactInfo?._id, true);
               } else {
@@ -110,19 +112,43 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
+                const isMobile = window.innerWidth < 768;
+                // On mobile, let Enter insert a newline. On desktop, Enter sends (unless Shift is held).
+                if (isMobile) {
+                  return; // let default newline happen
+                }
+                
+                if (!e.shiftKey) {
+                  e.preventDefault();
+                  if (text.trim() === "") return;
+                  sendMessage(text);
+                  typing(contactInfo?.conversationId, contactInfo?._id, false);
+                  setShowStickers(false);
+                  setText("");
+                  e.currentTarget.style.height = 'auto';
+                }
+              }
+            }}
+          />
+
+          <div className="absolute bottom-2 right-2 w-fit z-10 gap-2 flex items-center">
+            <button className="text-taluq-green cursor-pointer font-semibold text-sm hover:opacity-80" onClick={() => setShowGiphy(!showGiphy)}>GIFs</button>
+            <button className="text-taluq-green cursor-pointer hover:opacity-80" onClick={() => setShowStickers(!showStickers)}>
+              <RiEmojiStickerLine className="text-2xl" />
+            </button>
+            <button 
+              className="bg-taluq-green text-white rounded-full p-1.5 ml-1 flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer shadow-sm"
+              onClick={() => {
                 if (text.trim() === "") return;
                 sendMessage(text);
                 typing(contactInfo?.conversationId, contactInfo?._id, false);
                 setShowStickers(false);
                 setText("");
-              }
-            }}
-          />
-
-          <div className="absolute top-1/2 -translate-y-1/2 right-2 w-fit z-10 gap-2 flex items-center">
-            <button className="text-taluq-green cursor-pointer font-semibold text-sm hover:opacity-80" onClick={() => setShowGiphy(!showGiphy)}>GIFs</button>
-            <button className="text-taluq-green cursor-pointer hover:opacity-80" onClick={() => setShowStickers(!showStickers)}>
-              <RiEmojiStickerLine className="text-2xl" />
+                const textarea = document.querySelector('.chat-input') as HTMLTextAreaElement;
+                if (textarea) textarea.style.height = 'auto';
+              }}
+            >
+              <IoSend className="text-lg pl-0.5" />
             </button>
           </div>
         </div>

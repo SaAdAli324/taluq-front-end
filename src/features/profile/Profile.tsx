@@ -98,19 +98,23 @@ const Profile = () => {
                                 <IoClose className="text-xl text-white/90" />
                             </span>
                         </div>
-                        <button
-                            onClick={toggleTheme}
-                            className=" top-4 right-4 z-40 p-3 rounded-full bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-100 shadow-lg border border-slate-200 dark:border-slate-800 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer"
-                            title="Toggle Theme"
-                        >
-                            {isDarkMode ? <MdLightMode className="text-xl" /> : <MdDarkMode className="text-xl" />}
-                        </button>
+                        {userId._id === searchParams.get("profile") && (
+                            <button
+                                onClick={toggleTheme}
+                                className=" top-4 right-4 z-40 p-3 rounded-full bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-100 shadow-lg border border-slate-200 dark:border-slate-800 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer"
+                                title="Toggle Theme"
+                            >
+                                {isDarkMode ? <MdLightMode className="text-xl" /> : <MdDarkMode className="text-xl" />}
+                            </button>
+                        )}
                     </div>
                     <div className='w-25 h-25  rounded-full overflow-hidden'>
                         <img src={user?.profilePic ? user.profilePic : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"} alt="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" />
                     </div>
 
-                    <span className={`cursor-pointer ${isDarkMode ? 'text-white/80' : 'text-black/80'} font-medium`} onClick={() => { fileInputRef.current?.click() }}>change photo</span>
+                    {userId._id === searchParams.get("profile") && (
+                        <span className={`cursor-pointer ${isDarkMode ? 'text-white/80' : 'text-black/80'} font-medium`} onClick={() => { fileInputRef.current?.click() }}>change photo</span>
+                    )}
 
                 </div>
                 <span className='text-gray-500 dark:text-gray-400 border-b dark:border-slate-800' >id:{user?._id}</span>
