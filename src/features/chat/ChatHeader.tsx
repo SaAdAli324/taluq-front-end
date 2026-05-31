@@ -8,13 +8,19 @@ const ChatHeader = ({ contactInfo, isOnline, setSearchParams }: any) => {
   return (
     <div className="Chat-box border-b border-gray-200 dark:border-slate-800 px-2 flex w-full bg-white dark:bg-[#0b0f19] transition-colors duration-300">
       <div className="flex items-center justify-center ">
-        <span className="cursor-pointer text-black dark:text-white" onClick={() => dispatch(setContact(null))}>
+        <span className="cursor-pointer text-black dark:text-white" onClick={() => {
+          setSearchParams((prev: URLSearchParams) => {
+            prev.delete('chat');
+            return prev;
+          });
+          dispatch(setContact(null));
+        }}>
           <IoArrowBack className="text-lg" />
         </span>
       </div>
       <div className="w-full flex items-center gap-4 p-2">
         <div 
-          onClick={() => setSearchParams({ profile: contactInfo?._id as string })} 
+          onClick={() => setSearchParams((prev: URLSearchParams) => { prev.set('profile', contactInfo?._id as string); return prev; })} 
           className="contact-profile-pic cursor-pointer rounded-full border dark:border-slate-800 min-w-14 min-h-14 overflow-hidden"
         >
           <img

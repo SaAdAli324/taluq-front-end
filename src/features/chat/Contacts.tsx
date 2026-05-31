@@ -114,6 +114,10 @@ const Contacts = () => {
       conversationId: conversationId
     }
     dispatch(setContact(payload))
+    setSearchParams((prev: URLSearchParams) => {
+      prev.set('chat', conversationId);
+      return prev;
+    });
   }
 
   const openProfile = (userId: string) => {

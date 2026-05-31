@@ -140,8 +140,7 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
           <div
             ref={inputRef}
             contentEditable={true}
-            role="textbox"
-            aria-multiline="true"
+            suppressContentEditableWarning={true}
             data-placeholder="Type a message..."
             className="chat-input pr-32 overflow-y-auto block w-full py-2.5 min-h-[44px] max-h-32 scrollbar-thin scrollbar-thumb-taluq-green focus:outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-slate-400 empty:before:pointer-events-none break-words"
             onInput={(e) => {

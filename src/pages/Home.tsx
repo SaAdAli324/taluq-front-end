@@ -8,10 +8,21 @@ import { useEffect, useState } from "react"
 import Profile from "../features/profile/Profile.tsx"
 import { useSearchParams } from "react-router-dom"
 import { IoLogoGithub, IoLogoLinkedin } from "react-icons/io5"
+import { useDispatch } from "react-redux"
+import { setContact } from "../app/store/slices/chatSlice.ts"
+
 const Home = () => {
   const user = useAppSelector((state) => state.protectRoutes.user)
   const contactInfo = useAppSelector((state) => state.contact.contactInfo)
   const [searchParams , setSearchParams] = useSearchParams()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const chatParam = searchParams.get('chat');
+    if (!chatParam && contactInfo !== null) {
+      dispatch(setContact(null));
+    }
+  }, [searchParams, contactInfo, dispatch])
 
 
 
