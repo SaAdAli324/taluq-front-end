@@ -121,7 +121,7 @@ const Profile = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className='relative min-w-0 w-full  px-2 py-4 rounded-2xl flex flex-col gap-2 items-center justify-center bg-white dark:bg-[#1e293b] border-0 transition-colors duration-300'>
 
-                    <input type="file"  {...rest} ref={(e) => { profilePicsRef(e); fileInputRef.current = e }
+                    <input type="file" accept="image/jpeg, image/png, image/jpg" {...rest} ref={(e) => { profilePicsRef(e); fileInputRef.current = e }
                     } className='hidden' />
                     <div className='w-full  space-y-1'>
                         <p className='text-taluq-green mx-auto'>username</p>
