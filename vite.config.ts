@@ -5,4 +5,12 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(),
   tailwindcss() as any],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://taluq-backend-1.onrender.com',
+        changeOrigin: true,
+      }
+    }
+  }
 })

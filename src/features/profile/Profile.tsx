@@ -55,14 +55,11 @@ const Profile = () => {
                 formData.append("profilePics", fileList[0])
             }
             formData.append("name", data.name)
-            formData.append("biography", data.biography)
-
-            console.log(formData.get("profilePics"))
+            formData.append("biography", data.biography)// formData.get("profilePics"))
             const response = await api.put('/api/get/profile/user/update', formData)
             reset(data)
             setUser(response.data.user)
-        } catch (error) {
-            console.log(error)
+        } catch (error) {// error)
         }
     }
 
@@ -70,12 +67,10 @@ const Profile = () => {
         const getProgileData = async () => {
             try {
                 const userId = searchParams.get("profile")
-                const response = await api.get(`/api/get/profile/user/${userId}`)
-                console.log(response.data.user)
+                const response = await api.get(`/api/get/profile/user/${userId}`)// response.data.user)
                 setUser(response.data.user)
 
-            } catch (error) {
-                console.log(error)
+            } catch (error) {// error)
             }
         }
         getProgileData()
@@ -87,8 +82,7 @@ const Profile = () => {
             if (response) {
                 dispatch(logout())
             }
-        } catch (error) {
-            console.log(error)
+        } catch (error) {// error)
         }
     }
 
@@ -121,7 +115,7 @@ const Profile = () => {
                 </div>
                 <span className='text-gray-500 dark:text-gray-400 border-b dark:border-slate-800' >id:{user?._id}</span>
 
-                <form onSubmit={handleSubmit(onSubmit, (validationErrors) => console.log("Zod Errors:", validationErrors))} className='relative min-w-0 w-full  px-2 py-4 rounded-2xl flex flex-col gap-2 items-center justify-center bg-white dark:bg-[#1e293b] border-0 transition-colors duration-300'>
+                <form onSubmit={handleSubmit(onSubmit)} className='relative min-w-0 w-full  px-2 py-4 rounded-2xl flex flex-col gap-2 items-center justify-center bg-white dark:bg-[#1e293b] border-0 transition-colors duration-300'>
 
                     <input type="file"  {...rest} ref={(e) => { profilePicsRef(e); fileInputRef.current = e }
                     } className='hidden' />

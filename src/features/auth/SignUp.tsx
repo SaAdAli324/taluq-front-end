@@ -23,8 +23,7 @@ const SignUp = () => {
             setSuccessMessage(response.data.message || "Registration successful! Please check your email to verify your account.");
         } catch (error: any) {
             const errMsg = error.response?.data?.message || "Sign up failed. Please try again.";
-            setApiError(errMsg);
-            console.error(errMsg);
+            setApiError(errMsg);// errMsg);
         } finally {
             setLoading(false);
         }

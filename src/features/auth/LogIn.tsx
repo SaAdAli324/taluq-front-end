@@ -25,14 +25,12 @@ const LogIn = () => {
     setApiError("");
     setLoading(true);
     try {
-      const response = await api.post("/api/auth/login", data);
-      console.log(response.data);
+      const response = await api.post("/api/auth/login", data);// response.data);
       dispatch(login(response.data.user));
       navigate("/home");
     } catch (error: any) {
       const errMsg = error.response?.data?.message || "Login failed. Please try again.";
-      setApiError(errMsg);
-      console.error(errMsg);
+      setApiError(errMsg);// errMsg);
     } finally {
       setLoading(false);
     }
@@ -86,7 +84,7 @@ const LogIn = () => {
 
         {apiError && <p className="text-red-500 text-sm text-center font-medium">{apiError}</p>}
 
-        <a href="http://localhost:5000/api/auth/google" className="!bg-white dark:!bg-slate-800 !text-black dark:!text-white !border-0 flex items-center justify-center gap-1 py-2 rounded shadow-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-300">continue with google
+        <a href={`${import.meta.env.VITE_BACKEND_URL}/api/auth/google`} className="!bg-white dark:!bg-slate-800 !text-black dark:!text-white !border-0 flex items-center justify-center gap-1 py-2 rounded shadow-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-300">continue with google
           <FcGoogle className="text-lg" />
         </a>
         

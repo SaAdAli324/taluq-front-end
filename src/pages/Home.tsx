@@ -17,8 +17,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    if (user) {
-      console.log("user authenticated");
+    if (user) {// "user authenticated");
       socket.connect()
       return () => {
         socket.disconnect()
@@ -27,8 +26,7 @@ const Home = () => {
   }, [user])
   useEffect(() => {
     socket.emit("user_is_online", user._id)
-    return () => {
-      console.log("i am disconnected");
+    return () => {// "i am disconnected");
       socket.disconnect()
     }
 

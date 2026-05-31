@@ -41,12 +41,10 @@ const Contacts = () => {
     const fetchContacts = async () => {
       try {
         setIsLoading(true)
-        const response = await api.get("/api/conversation/get")
-        console.log(response.data.data);
+        const response = await api.get("/api/conversation/get")// response.data.data);
         setContacts(response.data.data)
         setIsLoading(false)
-      } catch (error) {
-        console.log(error);
+      } catch (error) {// error);
         setIsLoading(false)
 
       }
@@ -56,20 +54,17 @@ const Contacts = () => {
   }, [contacts.length ,socket])
 
     const addContact = async (contactId: string, savedName: string|null) => {
-    try {
-      console.log(contactId, savedName);
+    try {// contactId, savedName);
 
       if (!contactId) return
       const payload = { contactId, savedName }
-      const response = await api.post('/api/conversation/add', payload)
-      console.log(response.data.data);
+      const response = await api.post('/api/conversation/add', payload)// response.data.data);
 
       setContacts((prev:any) => [...prev, response.data.data])
 
       setSearchedUser(null)
 
-    } catch (error) {
-      console.log(error);
+    } catch (error) {// error);
 
     }
   }
@@ -78,8 +73,7 @@ const Contacts = () => {
     socket.on("receive_message", (incomingData) => {
       
       if (incomingData && incomingData.message) {
-        setNewMessage(incomingData.message)
-        console.log("this is the message comming", incomingData.message)
+        setNewMessage(incomingData.message)// "this is the message comming", incomingData.message)
       
         const conversationExists = contactsRef.current.some((conv: any) =>
           conv.participants.some((participant: any) => participant._id === incomingData.message.sender)
@@ -102,12 +96,10 @@ const Contacts = () => {
       const query: any = {
         _id
       }
-      const response = await api.post("/api/search/user", query)
-      console.log(response.data.data);
+      const response = await api.post("/api/search/user", query)// response.data.data);
       setSearchedUser(response.data.data)
 
-    } catch (error) {
-      console.log(error);
+    } catch (error) {// error);
 
     }
   }
@@ -132,8 +124,7 @@ const Contacts = () => {
     try {
       setIsLoading(true)
       
-      const response = await api.delete(`api/conversation/delete/${openConfirmModal}`)
-       console.log(response.data)
+      const response = await api.delete(`api/conversation/delete/${openConfirmModal}`)// response.data)
        if (response.data.success===true) {
 
       setContacts((prev:any)=> prev.filter((m:any)=> m._id !== openConfirmModal))
@@ -142,8 +133,7 @@ const Contacts = () => {
       setIsLoading(false)
       setOpenConfirmModal(null)
 
-    } catch (error) {
-      console.log(`error in deleting resource ${endpoint} :`, error);
+    } catch (error) {// `error in deleting resource ${endpoint} :`, error);
       setIsLoading(false)
     }
   }

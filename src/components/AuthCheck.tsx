@@ -13,13 +13,11 @@ const AuthCheck = ({ children }: { children: React.ReactNode }) => {
       try {
         const response = await api.get('api/get/profile', {
           withCredentials: true
-        })
-        console.log(response)
+        })// response)
         dispatch(login(response.data.user))
         dispatch(setCheckingAuth(false))
       } catch (error) {
-        dispatch(setCheckingAuth(false))
-        console.log("this is  the authentication  error", error);
+        dispatch(setCheckingAuth(false))// "this is  the authentication  error", error);
         
       }
     }

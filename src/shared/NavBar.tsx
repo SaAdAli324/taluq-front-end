@@ -2,10 +2,8 @@
 import { useSelector } from "react-redux"
 import { useSearchParams } from "react-router-dom"
 const NavBar = () => {
-  const user = useSelector((state: any) => state.protectRoutes.user)
-  console.log(user)
-  const [, setSearchParams] = useSearchParams()
-  console.log( "this is the user",user);
+  const user = useSelector((state: any) => state.protectRoutes.user)// user)
+  const [, setSearchParams] = useSearchParams()//  "this is the user",user);
 
 
   return (

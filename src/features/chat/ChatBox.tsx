@@ -54,8 +54,7 @@ const ChatBox = () => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       const firstEntry = entries[0]
-      if (firstEntry.isIntersecting) {
-        console.log("DIV HIT! hasMore:", hasMore, "| isFetchingOlder:", isFetchingOlder, isLoading);
+      if (firstEntry.isIntersecting) {// "DIV HIT! hasMore:", hasMore, "| isFetchingOlder:", isFetchingOlder, isLoading);
       }
       if (firstEntry.isIntersecting && !isFetchingOlder && hasMore) {
         loadMoreMessages()
