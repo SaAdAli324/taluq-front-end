@@ -77,6 +77,7 @@ export const ChatHooks = (contactInfo: any, user: any) => {
     useEffect(() => {// "i am socket use effect");
 
         if (!contactInfo?._id) return
+        setIsOnline("offline")
 
         // const handleGetOnlineUsers = (userId: {userId:string, status:string}) => {
         //// "these are the online users", userId);
