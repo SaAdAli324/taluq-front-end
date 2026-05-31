@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import api from '../../api.ts'
 import { MdDarkMode, MdLightMode } from "react-icons/md"
 
-import { logout } from '../../app/store/slices/authSlices.ts'
+import { logout, login } from '../../app/store/slices/authSlices.ts'
 import { useDispatch } from 'react-redux'
 import { IoClose } from 'react-icons/io5'
 import { useEffect } from 'react'
@@ -59,6 +59,7 @@ const Profile = () => {
             const response = await api.put('/api/get/profile/user/update', formData)
             reset(data)
             setUser(response.data.user)
+            dispatch(login(response.data.user))
         } catch (error) {// error)
         }
     }
