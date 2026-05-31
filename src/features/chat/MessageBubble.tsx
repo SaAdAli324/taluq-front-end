@@ -106,7 +106,7 @@ const MessageBubble = ({ message, isMe, openOptions, setOpenOptions, onEdit, onD
         {isMe ? (message.issend || message.isEdited ? (message.isdelivered ? <LiaCheckDoubleSolid className={message.seen ? "text-blue-500" : ""} /> : <IoCheckmarkOutline />) : <CiClock2 className="animation-rotate" />) : null}
 
         {/* Message Content */}
-        <div className="max-w-xs min-w-0 whitespace-pre-wrap wrap-break-word">
+        <div className="max-w-xs min-w-0 whitespace-pre-wrap break-words">
           <div className={bubbleClass}>
             {renderMessageContent()}
           </div>

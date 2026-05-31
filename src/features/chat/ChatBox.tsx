@@ -92,9 +92,9 @@ const ChatBox = () => {
   };
 
   return (
-    <div className="animate-fade-in flex transition-all duration-700 ease-in-out h-full max-h-full flex-col px-1 pt-3 min-h-0">
+    <div className="animate-fade-in flex w-full overflow-x-hidden transition-all duration-700 ease-in-out h-full max-h-full flex-col px-1 pt-3 min-h-0">
       <ChatHeader contactInfo={contactInfo} isOnline={isOnline} setSearchParams={setSearchParams} />
-      <div ref={scrollContainerRef} className="messageArea  [overflow-anchor:auto] px-1 flex flex-col flex-1 overflow-y-auto bg-slate-50/50 dark:bg-[#0b0f19] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-taluq-green min-h-0 gap-4 transition-colors duration-300">
+      <div ref={scrollContainerRef} className="messageArea overflow-x-hidden [overflow-anchor:auto] px-1 flex flex-col flex-1 overflow-y-auto bg-slate-50/50 dark:bg-[#0b0f19] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-taluq-green min-h-0 gap-4 transition-colors duration-300">
 
 {
   isLoading || messages.length===0? null : 

@@ -167,7 +167,7 @@ const Contacts = () => {
         />
         {isSearachingUser ? "" : <IoSearch className="absolute right-5" />}
       </div>
- {searchedUser && searchedUser.length >0 ? <div className="flex flex-col  py-1 pb-4 bg-slate-100">
+ {searchedUser && searchedUser.length >0 ? <div className="flex flex-col  py-1 pb-4 dark:bg-slate-900 bg-slate-100">
         {searchedUser && searchedUser.length >0 ? searchedUser.map((m: any) => {
         return (
           <div className=" dark:border-slate-800 relative w-full h-14  flex items-center gap-2 px-1 hover:bg-slate-100 dark:hover:bg-slate-800 bg-white dark:bg-[#262d3b] transition-all duration-300">
@@ -203,11 +203,11 @@ const Contacts = () => {
                     }
 
                   </div>
-                  <div className=" w-full flex flex-col justify-between ">
-                    <h2 className="font-medium ">{contact.participants[0]?.name ? contact.participants[0].name : "user"}</h2>
-                    <div className=" w-full flex  gap-2 justify-between  items-center ">
-                      <p className={`${newMessage && newMessage.conversationId === contact._id && newMessage.seen === false ? 'font-semibold text-black dark:text-white' : 'font-medium text-sm text-slate-500 dark:text-slate-400 w-full min-w-0 max-w-xs max-h-fit min-h-fit'} `}>
-                        {newMessage && newMessage.conversationId === contact._id ? newMessage.text ? newMessage.text.slice(0, 15) + "..." : "no message yet" : contact.lastMessage ? contact.lastMessage.text!.length > 20 ? contact.lastMessage.text!.slice(0, 20) + "..." : contact.lastMessage.text : "No message yet"}
+                  <div className=" w-full flex flex-col justify-between min-w-0 ">
+                    <h2 className="font-medium truncate">{contact.participants[0]?.name ? contact.participants[0].name : "user"}</h2>
+                    <div className=" w-full flex  gap-2 justify-between  items-center min-w-0 ">
+                      <p className={`truncate ${newMessage && newMessage.conversationId === contact._id && newMessage.seen === false ? 'font-semibold text-black dark:text-white' : 'font-medium text-sm text-slate-500 dark:text-slate-400 w-full min-w-0 max-w-xs max-h-fit min-h-fit'} `}>
+                        {newMessage && newMessage.conversationId === contact._id ? newMessage.text ? newMessage.text : "no message yet" : contact.lastMessage ? contact.lastMessage.text : "No message yet"}
                       </p>
                       <div className="flex items-center  justify-center gap-2 relative min-h-8">
                         {openOptions === contact._id ? (

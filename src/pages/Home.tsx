@@ -34,13 +34,13 @@ const Home = () => {
   const openProfileId =  searchParams.get("profile")
  
   return (
-    <div className="h-screen flex flex-col bg-white dark:bg-[#0b0f19] text-black dark:text-white transition-colors duration-300">
+    <div className="h-screen w-full overflow-hidden flex flex-col bg-white dark:bg-[#0b0f19] text-black dark:text-white transition-colors duration-300">
 
       <div className=" flex-1 relative grid gap-2 grid-cols-12 min-h-0 h-full">
         <div className={` col-span-4  max-lg:col-span-5 
             transition-all duration-300 ease-in-out 
             border-slate-200 dark:border-slate-800 border-r    
-            overflow-y-auto
+            overflow-y-auto overflow-x-hidden
              ${(contactInfo !== null ? ' max-md:h-full max-md:z-0 max-md:opacity-0 max-md:pointer-events-none max-md:w-full' : 'max-md:opacity-100 max-md:pointer-events-auto max-md:w-full max-md:absolute z-10 ')}`}>
           <NavBar />
           <Contacts />
