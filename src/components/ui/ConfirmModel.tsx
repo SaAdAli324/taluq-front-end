@@ -14,8 +14,8 @@ const ConfirmModel = ({ isOpen, title, message, onConfirm, onCancel ,loading }: 
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center">
-      <div className="bg-white dark:bg-[#1e293b] border dark:border-slate-800 p-4 rounded-lg max-w-xs w-full min-w-0 transition-colors duration-300">
+    <div className="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center animate-fade-in">
+      <div className="bg-white dark:bg-[#1e293b] border dark:border-slate-800 p-4 rounded-lg max-w-xs w-[90%] min-w-0 transition-colors duration-300">
         <h2 className="text-lg font-medium text-black dark:text-white">{title}</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400">{message}</p>
         { loading?<div><AiOutlineLoading className="animate-spin text-lg text-slate-500 dark:text-slate-400" /></div> : <div className="flex justify-end gap-2 mt-4">

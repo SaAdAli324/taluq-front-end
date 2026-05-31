@@ -18,8 +18,8 @@ const UpdateModel = ({ isOpen, currentMessage, onConfirm, onCancel }: ConfirmMod
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center">
-   {   loading?<div><AiOutlineLoading className="animate-spin text-lg text-slate-500 dark:text-slate-400" /></div>:<div className={` bg-white dark:bg-[#1e293b] border dark:border-slate-800 p-4 flex flex-col gap-2 rounded-lg relative max-w-xs w-full min-w-0 transition-colors duration-300`}>
+    <div className="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center animate-fade-in">
+   {   loading?<div><AiOutlineLoading className="animate-spin text-lg text-slate-500 dark:text-slate-400" /></div>:<div className={` bg-white dark:bg-[#1e293b] border dark:border-slate-800 p-4 flex flex-col gap-2 rounded-lg relative max-w-xs w-[90%] min-w-0 transition-colors duration-300`}>
       <IoClose onClick={onCancel} className="cursor-pointer absolute right-2 top-2 text-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"/>
 
         <h2 className={`${groupingError} font-semibold`}>update message</h2>

@@ -88,9 +88,9 @@ const Profile = () => {
 
     return (
 
-        <div className=' inset-0 z-50 fixed flex flex-col items-center w-full bg-black/70 justify-center h-screen'>
+        <div className='animate-fade-in inset-0 z-50 fixed flex flex-col items-center w-full bg-black/70 justify-center h-screen'>
 
-            <div className='relative min-w-0 w-lg max-md:w-full rounded-2xl flex flex-col gap-2 items-center justify-center bg-white dark:bg-[#1e293b] border dark:border-slate-800 transition-colors duration-300' >
+            <div className='relative min-w-0 w-[90%] max-w-lg rounded-2xl flex flex-col gap-2 items-center justify-center bg-white dark:bg-[#1e293b] border dark:border-slate-800 transition-colors duration-300' >
                 <div className='flex flex-col taluq-theme w-full items-center py-2 rounded-2xl'>
                     <div className="flex justify-between items-center w-full px-4">
                         <div className="flex items-center gap-3">
