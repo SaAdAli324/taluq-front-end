@@ -84,7 +84,7 @@ const LogIn = () => {
 
         {apiError && <p className="text-red-500 text-sm text-center font-medium">{apiError}</p>}
 
-        <a href={`${import.meta.env.VITE_BACKEND_URL}/api/auth/google`} className="!bg-white dark:!bg-slate-800 !text-black dark:!text-white !border-0 flex items-center justify-center gap-1 py-2 rounded shadow-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-300">continue with google
+        <a href="/api/auth/google" className="!bg-white dark:!bg-slate-800 !text-black dark:!text-white !border-0 flex items-center justify-center gap-1 py-2 rounded shadow-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-300">continue with google
           <FcGoogle className="text-lg" />
         </a>
         
