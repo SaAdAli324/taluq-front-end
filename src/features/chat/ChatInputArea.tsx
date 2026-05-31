@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import EmojiPicker from 'emoji-picker-react';
 import { RiEmojiStickerLine } from "react-icons/ri";
 import { IoAttachOutline, IoImageOutline, IoVideocamOutline, IoDocumentOutline, IoSend } from "react-icons/io5";
@@ -13,6 +13,22 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
   const imageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setShowStickers(false);
+        setShowGiphy(false);
+        setShowAttachmentMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -23,12 +39,24 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
   };
 
   return (
-    <>
+    <div ref={wrapperRef} className="w-full">
       <div className="fixed w-fit h-fit bottom-20 right-2 z-50 gap-1 flex">
         {showStickers && (
           <EmojiPicker
             className="h-96! w-xs z-50 cursor-pointer"
-            onEmojiClick={(emojiObject: any) => setText(prev => prev + emojiObject.emoji)}
+            onEmojiClick={(emojiObject: any) => {
+              const newText = text + emojiObject.emoji;
+              setText(newText);
+              if (inputRef.current) {
+                 inputRef.current.textContent = newText;
+                 const range = document.createRange();
+                 const sel = window.getSelection();
+                 range.selectNodeContents(inputRef.current);
+                 range.collapse(false);
+                 sel?.removeAllRanges();
+                 sel?.addRange(range);
+              }
+            }}
           />
         )}
         {showGiphy && (
@@ -109,37 +137,58 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
         </button>
 
         <div className="flex-1 relative">
-          <textarea
-            rows={1}
-            placeholder="Type a message"
-            className="chat-input pr-32 resize-none overflow-y-auto block w-full py-2.5 min-h-[44px] max-h-32 scrollbar-thin scrollbar-thumb-taluq-green"
-            value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-              e.target.style.height = 'auto';
-              e.target.style.height = `${e.target.scrollHeight}px`;
-              if (e.target.value.trim() !== "") {
+          <div
+            ref={inputRef}
+            contentEditable={true}
+            role="textbox"
+            aria-multiline="true"
+            data-placeholder="Type a message..."
+            className="chat-input pr-32 overflow-y-auto block w-full py-2.5 min-h-[44px] max-h-32 scrollbar-thin scrollbar-thumb-taluq-green focus:outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-slate-400 empty:before:pointer-events-none break-words"
+            onInput={(e) => {
+              const val = e.currentTarget.textContent || "";
+              setText(val);
+              if (val.trim() !== "") {
                 typing(contactInfo?.conversationId, contactInfo?._id, true);
               } else {
                 typing(contactInfo?.conversationId, contactInfo?._id, false);
               }
             }}
+            onPaste={(e) => {
+              const items = e.clipboardData?.items;
+              let hasImage = false;
+              if (items) {
+                for (let i = 0; i < items.length; i++) {
+                  if (items[i].type.indexOf("image") !== -1) {
+                    const file = items[i].getAsFile();
+                    if (file) {
+                      e.preventDefault();
+                      hasImage = true;
+                      sendFileMessage(file);
+                    }
+                  }
+                }
+              }
+              if (hasImage) return;
+              
+              // Ensure plain text paste
+              e.preventDefault();
+              const pasteText = e.clipboardData?.getData("text/plain") || "";
+              document.execCommand("insertText", false, pasteText);
+            }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 const isMobile = window.innerWidth < 768;
-                // On mobile, let Enter insert a newline. On desktop, Enter sends (unless Shift is held).
-                if (isMobile) {
-                  return; // let default newline happen
-                }
+                if (isMobile) return;
                 
                 if (!e.shiftKey) {
                   e.preventDefault();
-                  if (text.trim() === "") return;
-                  sendMessage(text);
+                  const val = e.currentTarget.textContent || "";
+                  if (val.trim() === "") return;
+                  sendMessage(val);
                   typing(contactInfo?.conversationId, contactInfo?._id, false);
                   setShowStickers(false);
                   setText("");
-                  e.currentTarget.style.height = 'auto';
+                  e.currentTarget.textContent = "";
                 }
               }
             }}
@@ -160,6 +209,7 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
                 setText("");
                 const textarea = document.querySelector('.chat-input') as HTMLTextAreaElement;
                 if (textarea) textarea.style.height = 'auto';
+                if (inputRef.current) inputRef.current.textContent = "";
               }}
             >
               <IoSend className="text-lg pl-0.5" />
@@ -167,7 +217,7 @@ const ChatInputArea = ({ contactInfo, sendMessage, typing, handleSendSticker, se
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
